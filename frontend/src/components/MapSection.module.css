@@ -1,0 +1,84 @@
+.section { padding:96px 6%; background:#fff; }
+
+.wrap {
+  display:grid; grid-template-columns:1.1fr 1fr; gap:52px;
+  max-width:1280px; margin:0 auto; align-items:start;
+  opacity:0; transform:translateY(32px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.in { opacity:1; transform:translateY(0); }
+
+/* MAP */
+.mapCol {}
+.mapContainer { position:relative; border-radius:24px; overflow:hidden; box-shadow:0 24px 70px rgba(15,37,87,.16); }
+.iframe { width:100%; height:440px; border:none; display:block; }
+
+.pinCard {
+  position:absolute; bottom:20px; left:20px; right:20px;
+  background:#fff; border-radius:16px;
+  padding:16px 18px; display:flex; align-items:center; gap:14px;
+  box-shadow:0 8px 30px rgba(0,0,0,.15); backdrop-filter:blur(10px);
+  flex-wrap:wrap;
+}
+.pinIcon { font-size:1.8rem; flex-shrink:0; }
+.pinName { font-weight:800; color:#0f2557; font-size:.95rem; }
+.pinAddr { font-size:.78rem; color:#7a8ba0; margin-top:2px; }
+.pinBtn {
+  margin-left:auto; background:#0f2557; color:#fff;
+  padding:9px 18px; border-radius:50px; text-decoration:none;
+  font-size:.78rem; font-weight:700; transition:background .3s, transform .3s;
+  white-space:nowrap;
+}
+.pinBtn:hover { background:#4bb543; transform:translateY(-2px); }
+
+/* INFO */
+.infoCol {}
+.infoTitle { font-family:'Playfair Display',serif; font-size:1.7rem; font-weight:800; color:#0f2557; margin-bottom:10px; }
+.infoSub   { font-size:.93rem; color:#7a8ba0; line-height:1.8; margin-bottom:28px; }
+
+.items { display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+.item {
+  display:flex; align-items:flex-start; gap:14px;
+  padding:14px 16px; background:#f4f7fc;
+  border-radius:14px; border:1.5px solid #dde6f5;
+  transition:border-color .3s, transform .3s;
+  cursor:default;
+}
+.item:hover { border-color:#4bb543; transform:translateX(5px); }
+.itemIco { width:40px; height:40px; border-radius:11px; background:rgba(75,181,67,.1); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.itemLbl { font-size:.7rem; color:#7a8ba0; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:3px; }
+.itemVal { font-size:.88rem; font-weight:600; color:#0f2557; line-height:1.5; }
+.itemVal a { color:#0f2557; text-decoration:none; transition:color .3s; }
+.itemVal a:hover { color:#4bb543; }
+
+/* HOURS */
+.hours {
+  background:#f4f7fc; border-radius:16px; padding:18px 20px;
+  margin-bottom:20px; border:1.5px solid #dde6f5;
+}
+.hoursTitle { font-size:.82rem; font-weight:700; color:#0f2557; margin-bottom:12px; letter-spacing:.3px; }
+.hourRow { display:flex; justify-content:space-between; align-items:center; padding:7px 0; border-top:1px solid #dde6f5; }
+.hourRow:first-of-type { border-top:none; }
+.hourDay  { font-size:.82rem; color:#4a5568; font-weight:500; }
+.hourTime { font-size:.8rem; color:#4bb543; font-weight:700; }
+
+/* WA CTA */
+.waCta {
+  display:flex; align-items:center; gap:14px;
+  background:#25D366; color:#fff; text-decoration:none;
+  padding:16px 20px; border-radius:16px;
+  box-shadow:0 8px 28px rgba(37,211,102,.35);
+  transition:background .3s, transform .3s, box-shadow .3s;
+}
+.waCta:hover { background:#128C7E; transform:translateY(-3px); box-shadow:0 16px 40px rgba(37,211,102,.45); }
+.waIco   { font-size:1.8rem; flex-shrink:0; }
+.waTitle { font-weight:800; font-size:.95rem; }
+.waSub   { font-size:.78rem; opacity:.85; margin-top:2px; }
+.waArrow { margin-left:auto; font-size:1.3rem; transition:transform .3s; }
+.waCta:hover .waArrow { transform:translateX(5px); }
+
+@media(max-width:900px){
+  .wrap { grid-template-columns:1fr; }
+  .iframe { height:320px; }
+  .pinCard { position:relative; bottom:auto; left:auto; right:auto; margin-top:12px; border-radius:14px; }
+}

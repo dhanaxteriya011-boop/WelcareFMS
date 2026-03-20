@@ -1,0 +1,27 @@
+.strip {
+  background:#0f2557; padding:28px 0;
+  display:flex; align-items:center; gap:28px; overflow:hidden;
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.label {
+  font-size:.72rem; font-weight:700; color:#6dd468;
+  letter-spacing:2.5px; text-transform:uppercase;
+  white-space:nowrap; flex-shrink:0; padding-left:6%;
+}
+.track { overflow:hidden; flex:1; }
+.inner {
+  display:flex; gap:0;
+  animation:scroll 28s linear infinite;
+  width:max-content;
+}
+@keyframes scroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.track:hover .inner { animation-play-state:paused; }
+
+.chip {
+  display:flex; align-items:center; gap:9px;
+  padding:0 32px; border-right:1px solid rgba(255,255,255,.08);
+  white-space:nowrap;
+}
+.chipIco  { font-size:1.3rem; }
+.chipName { font-size:.84rem; font-weight:600; color:rgba(255,255,255,.7); }
