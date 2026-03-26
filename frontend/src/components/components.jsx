@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
 import apiModule from '../utils/api'
 
@@ -78,7 +79,7 @@ export function About() {
               </div>
             ))}
           </div>
-          <a href="#contact" className="btn-primary" style={{ width:'fit-content', textDecoration:'none' }}>Get In Touch →</a>
+          <Link to="/contact" className="btn-primary" style={{ width:'fit-content', textDecoration:'none' }}>Get In Touch →</Link>
         </div>
       </div>
     </section>
@@ -254,9 +255,9 @@ export function CtaBanner() {
           Contact us today and get a customised facility management solution at the best price. Serving hotels, corporates, residences and industries across Chennai & Tamil Nadu.
         </p>
         <div style={{ display:'flex', gap:16, justifyContent:'center', flexWrap:'wrap' }}>
-          <a href="#contact" className="btn-primary" style={{ textDecoration:'none', fontSize:'1rem', padding:'16px 38px', borderRadius:50 }}>
+          <Link to="/contact" className="btn-primary" style={{ textDecoration:'none', fontSize:'1rem', padding:'16px 38px', borderRadius:50 }}>
             Get a Free Quote →
-          </a>
+          </Link>
           <a href="https://wa.me/919585949422?text=Hello%20Welcare%20FMS%2C%20I%20need%20a%20quote%20for%20facility%20management."
             target="_blank" rel="noreferrer"
             style={{ background:'#25D366', color:'#fff', padding:'16px 32px', borderRadius:50, fontWeight:700, fontSize:'1rem', textDecoration:'none', display:'inline-flex', alignItems:'center', gap:10, boxShadow:'0 8px 28px rgba(37,211,102,.42)', transition:'background .3s, transform .3s' }}
@@ -306,10 +307,10 @@ export function Footer() {
           <ul style={{ listStyle:'none' }}>
             {svcs.map(([s,h])=>(
               <li key={s} style={{ marginBottom:10 }}>
-                <a href={h} style={{ fontSize:'.83rem', color:'rgba(255,255,255,.38)', textDecoration:'none', display:'flex', alignItems:'center', gap:7, transition:'color .3s' }}
+                <Link to={h} style={{ fontSize:'.83rem', color:'rgba(255,255,255,.38)', textDecoration:'none', display:'flex', alignItems:'center', gap:7, transition:'color .3s' }}
                   onMouseEnter={e=>e.currentTarget.style.color='#6dd468'} onMouseLeave={e=>e.currentTarget.style.color='rgba(255,255,255,.38)'}>
                   <span style={{ color:'#4bb543', fontSize:'1.05rem' }}>›</span>{s}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -321,10 +322,10 @@ export function Footer() {
           <ul style={{ listStyle:'none' }}>
             {qlinks.map(([l,h])=>(
               <li key={l} style={{ marginBottom:10 }}>
-                <a href={h} style={{ fontSize:'.83rem', color:'rgba(255,255,255,.38)', textDecoration:'none', display:'flex', alignItems:'center', gap:7, transition:'color .3s' }}
+                <Link to={h} style={{ fontSize:'.83rem', color:'rgba(255,255,255,.38)', textDecoration:'none', display:'flex', alignItems:'center', gap:7, transition:'color .3s' }}
                   onMouseEnter={e=>e.currentTarget.style.color='#6dd468'} onMouseLeave={e=>e.currentTarget.style.color='rgba(255,255,255,.38)'}>
                   <span style={{ color:'#4bb543', fontSize:'1.05rem' }}>›</span>{l}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

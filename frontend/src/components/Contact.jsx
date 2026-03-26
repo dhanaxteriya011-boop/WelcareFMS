@@ -2,8 +2,13 @@ import { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import styles from './Contact.module.css'
 
-// ── Backend API URL — update this to your Laravel backend URL
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+// ── EmailJS config — fill these after signup at emailjs.com (free)
+// See README inside ZIP for step-by-step setup
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || 'YOUR_SERVICE_ID'
+const EMAILJS_ADMIN_TMPL  = import.meta.env.VITE_EMAILJS_ADMIN_TMPL  || 'YOUR_ADMIN_TEMPLATE_ID'
+const EMAILJS_USER_TMPL   = import.meta.env.VITE_EMAILJS_USER_TMPL   || 'YOUR_USER_TEMPLATE_ID'
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || 'YOUR_PUBLIC_KEY'
+const ADMIN_EMAIL         = import.meta.env.VITE_ADMIN_EMAIL          || 'info@welcarefms.com'
 
 const SERVICES = [
   'Housekeeping Services','Landscape Services','Security Services',
@@ -19,29 +24,48 @@ const CONTACT_ITEMS = [
   { icon:'🌐', label:'Website',         value:'www.welcarefms.com', href:'https://www.welcarefms.com' },
 ]
 
-// ── Send enquiry to Laravel backend
-async function sendEnquiry(form) {
-  const response = await fetch(`${API_URL}/api/enquiry`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify(form),
-  })
-
-  const data = await response.json()
-
-  if (!response.ok) {
-    // Laravel validation errors come back as { errors: { field: [...] } }
-    if (data.errors) {
-      const firstError = Object.values(data.errors)[0]?.[0]
-      throw new Error(firstError || 'Validation failed')
-    }
-    throw new Error(data.message || 'Something went wrong. Please try again.')
+// ── Send via EmailJS SDK (no backend needed)
+async function sendViaEmailJS(form) {
+  // Dynamically load EmailJS SDK
+  if (!window.emailjs) {
+    await new Promise((resolve, reject) => {
+      const s = document.createElement('script')
+      s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js'
+      s.onload = resolve
+      s.onerror = reject
+      document.head.appendChild(s)
+    })
+    window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY })
   }
 
-  return data
+  const now = new Date().toLocaleString('en-IN', {
+    day:'2-digit', month:'short', year:'numeric',
+    hour:'2-digit', minute:'2-digit', hour12:true
+  })
+
+  const params = {
+    from_name:    form.name,
+    from_email:   form.email,
+    from_phone:   form.phone,
+    service:      form.service || 'Not specified',
+    message:      form.message || '—',
+    submitted_on: now,
+    admin_email:  ADMIN_EMAIL,
+    to_email:     form.email,
+    wa_link:      `https://wa.me/91${form.phone.replace(/\D/g,'')}?text=Hello+${encodeURIComponent(form.name)}%2C+this+is+Welcare+FMS+regarding+your+enquiry.`,
+  }
+
+  // Send to admin
+  await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_ADMIN_TMPL, {
+    ...params,
+    to_email: ADMIN_EMAIL,
+  })
+
+  // Send auto-reply to user
+  await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_USER_TMPL, {
+    ...params,
+    to_email: form.email,
+  })
 }
 
 export default function Contact() {
@@ -77,12 +101,14 @@ export default function Contact() {
     setServerError('')
 
     try {
-      await sendEnquiry(form)
+      await sendViaEmailJS(form)
       setSuccess(true)
       setForm({ name:'', phone:'', email:'', service:'', message:'' })
     } catch (err) {
-      console.error('Enquiry error:', err)
-      setServerError(err.message || 'Failed to send. Please try again or call us directly.')
+      console.error('EmailJS error:', err)
+      setServerError(
+        'EmailJS not configured yet. Please add your EmailJS keys to the .env file. See EMAILJS_SETUP.md for instructions.'
+      )
     } finally {
       setLoading(false)
     }
@@ -207,7 +233,7 @@ export default function Contact() {
                 disabled={loading}
               >
                 {loading
-                  ? <><span className={styles.spinner} /> Sending…</>
+                  ? <><span className={styles.spinner} /> Sending email…</>
                   : <>Send Enquiry ✉️</>
                 }
               </button>

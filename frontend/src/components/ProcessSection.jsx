@@ -1,4 +1,5 @@
 import { useInView } from 'react-intersection-observer'
+import { Link } from 'react-router-dom'
 import styles from './ProcessSection.module.css'
 
 const STEPS = [

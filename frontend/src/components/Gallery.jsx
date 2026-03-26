@@ -10,7 +10,7 @@ const ALL_ITEMS = [
   { id:5,  cat:'electrical',   title:'Electrical Services',          img:'https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=500&q=80',  wide:false },
   { id:6,  cat:'catering',     title:'Event Catering',               img:'https://images.unsplash.com/photo-1567521464027-f127ff144326?w=500&q=80',  wide:false },
   { id:7,  cat:'plumbing',     title:'Plumbing Work',                img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=500&q=80',  wide:false },
-  { id:8,  cat:'housekeeping', title:'Commercial Cleaning',          img:'https://img.freepik.com/free-photo/full-shot-men-cleaning-office_23-2149345516.jpg',  wide:false },
+  { id:8,  cat:'housekeeping', title:'Commercial Cleaning',          img:'https://images.unsplash.com/photo-1527515637462-cff94aca208b?w=500&q=80',  wide:false },
   { id:9,  cat:'security',     title:'Security Training',            img:'https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=500&q=80',  wide:false },
   { id:10, cat:'landscape',    title:'Urban Landscaping',            img:'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=700&q=80',  wide:true  },
   { id:11, cat:'catering',     title:'Wedding Catering',             img:'https://images.unsplash.com/photo-1555244162-803834f70033?w=500&q=80',     wide:false },

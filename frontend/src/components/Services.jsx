@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { Link } from 'react-router-dom'
 import api from '../utils/api'
 import styles from './Services.module.css'
 
@@ -75,9 +76,9 @@ function ServiceCard({ svc, index }) {
         <ul className={styles.list}>
           {features.map((f, i) => <li key={i}><span className={styles.check}>✓</span>{f}</li>)}
         </ul>
-        <a href="#contact" className={styles.cta}>
+        <Link to="/contact" className={styles.cta}>
           Get a Quote <span className={styles.arr}>→</span>
-        </a>
+        </Link>
       </div>
     </div>
   )
