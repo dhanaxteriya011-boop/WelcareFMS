@@ -8,6 +8,7 @@ import Services from './pages/Services'
 import Gallery  from './pages/Gallery'
 import Clients  from './pages/Clients'
 import Contact  from './pages/Contact'
+import PageLoader from './components/PageLoader'   // ← add
 import './App.css'
 
 function ScrollToTop() {
@@ -20,6 +21,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <PageLoader />   {/* ← add this */}
       <Navbar />
       <main style={{ width:'100%', overflow:'hidden' }}>
         <Routes>

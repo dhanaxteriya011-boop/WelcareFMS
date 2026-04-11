@@ -7,7 +7,7 @@ const CONTACT_ITEMS = [
   { ico:'📠', label:'Landline',        val:'044 – 28225362 / 4854 6598', href:'tel:04428225362' },
   { ico:'✉️', label:'Email',           val:'info@welcarefms.com', href:'mailto:info@welcarefms.com' },
   { ico:'🌐', label:'Website',         val:'www.welcarefms.com', href:'https://www.welcarefms.com' },
-  { ico:'💬', label:'WhatsApp',        val:'+91 95859 49422', href:'https://wa.me/919585949422' },
+  { ico:'💬', label:'WhatsApp',        val:'+91 95859 49422', href:'https://wa.me/919087876366' },
 ]
 
 const TIMINGS = [
@@ -92,7 +92,7 @@ export default function MapSection() {
 
           {/* WhatsApp CTA */}
           <a
-            href="https://wa.me/919585949422?text=Hello%20Welcare%20FMS%2C%20I%20need%20facility%20management%20services."
+            href="https://wa.me/919087876366?text=Hello%20Welcare%20FMS%2C%20I%20need%20facility%20management%20services."
             target="_blank" rel="noreferrer"
             className={styles.waCta}
           >

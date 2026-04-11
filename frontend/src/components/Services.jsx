@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { Link } from 'react-router-dom'
-import api from '../utils/api'
 import styles from './Services.module.css'
 
 const SERVICES = [
@@ -56,7 +54,7 @@ const SERVICES = [
 ]
 
 function ServiceCard({ svc, index }) {
-  const { ref, inView } = useInView({ threshold:0.08, triggerOnce:true })
+  const { ref, inView } = useInView({ threshold: 0.08, triggerOnce: true })
   const features = typeof svc.features === 'string' ? JSON.parse(svc.features) : svc.features
 
   return (
@@ -66,7 +64,7 @@ function ServiceCard({ svc, index }) {
       style={{ transitionDelay: `${(index % 4) * 80}ms` }}
     >
       <div className={styles.imgWrap}>
-        <img src={svc.img || `https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80`} alt={svc.name} className={styles.img} />
+        <img src={svc.img} alt={svc.name} className={styles.img} />
         <div className={styles.imgOverlay} />
         <div className={styles.iconBadge}>{svc.icon}</div>
       </div>
@@ -74,7 +72,9 @@ function ServiceCard({ svc, index }) {
         <h3 className={styles.name}>{svc.name}</h3>
         <p className={styles.desc}>{svc.short_desc}</p>
         <ul className={styles.list}>
-          {features.map((f, i) => <li key={i}><span className={styles.check}>✓</span>{f}</li>)}
+          {features.map((f, i) => (
+            <li key={i}><span className={styles.check}>✓</span>{f}</li>
+          ))}
         </ul>
         <Link to="/contact" className={styles.cta}>
           Get a Quote <span className={styles.arr}>→</span>
@@ -85,24 +85,17 @@ function ServiceCard({ svc, index }) {
 }
 
 export default function Services() {
-  const [services, setServices] = useState(SERVICES)
-  const { ref, inView } = useInView({ threshold:0.1, triggerOnce:true })
-
-  useEffect(() => {
-    api.get('/services')
-      .then(r => { if (r.data?.length) setServices(r.data.map((s,i)=>({...s,img:SERVICES[i]?.img||SERVICES[0].img}))) })
-      .catch(() => {})
-  }, [])
+  const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true })
 
   return (
-    <section id="services" className="section" style={{ background:'#fff' }}>
-      <div ref={ref} className={`sec-hdr ${inView?styles.fadeIn:styles.fadeOut}`} style={{ transitionDelay:'0ms' }}>
+    <section id="services" className="section" style={{ background: '#fff' }}>
+      <div ref={ref} className={`sec-hdr ${inView ? styles.fadeIn : styles.fadeOut}`}>
         <div className="sec-tag">What We Offer</div>
         <h2 className="sec-title">Our Core Services</h2>
         <p className="sec-desc">From precision housekeeping to high-voltage electrical work — every aspect of facility management covered by expert professionals across Chennai.</p>
       </div>
       <div className={styles.grid}>
-        {services.map((s, i) => <ServiceCard key={s.id||i} svc={s} index={i} />)}
+        {SERVICES.map((s, i) => <ServiceCard key={s.id} svc={s} index={i} />)}
       </div>
     </section>
   )

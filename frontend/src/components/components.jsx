@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer'
-import apiModule from '../utils/api'
 
 // ══════════════════════════════════════════════════
 // ABOUT
@@ -24,12 +23,10 @@ export function About() {
         {/* IMAGE COLLAGE */}
         <div ref={l} style={{ position:'relative', opacity:lIn?1:0, transform:lIn?'none':'translateY(32px)', transition:'opacity .75s, transform .75s' }}>
           <div style={{ display:'grid', gridTemplateColumns:'1.05fr .95fr', gap:14, height:500 }}>
-            {/* Tall left image */}
             <div style={{ borderRadius:22, overflow:'hidden', position:'relative' }}>
               <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&q=80" alt="Team" style={{ width:'100%', height:'100%', objectFit:'cover' }} />
               <div style={{ position:'absolute', inset:0, background:'linear-gradient(to top, rgba(15,37,87,.5) 0%, transparent 50%)' }} />
             </div>
-            {/* Two stacked right images */}
             <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
               <div style={{ borderRadius:22, overflow:'hidden', flex:1, position:'relative' }}>
                 <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&q=80" alt="Housekeeping" style={{ width:'100%', height:'100%', objectFit:'cover' }} />
@@ -40,7 +37,6 @@ export function About() {
             </div>
           </div>
 
-          {/* Floating stats badges */}
           <div style={{ position:'absolute', bottom:-20, right:-20, background:'#4bb543', color:'#fff', borderRadius:18, padding:'20px 26px', boxShadow:'0 14px 45px rgba(75,181,67,.42)', textAlign:'center', zIndex:3 }}>
             <div style={{ fontFamily:'Playfair Display,serif', fontSize:'2.4rem', fontWeight:900, lineHeight:1 }}>15+</div>
             <div style={{ fontSize:'.72rem', opacity:.9, marginTop:4, letterSpacing:.5, textTransform:'uppercase' }}>Years Excellence</div>
@@ -49,7 +45,6 @@ export function About() {
             <div style={{ fontSize:'.66rem', color:'#6dd468', letterSpacing:1.8, textTransform:'uppercase', marginBottom:4, fontWeight:700 }}>✓ Registered</div>
             <div style={{ fontSize:'.85rem', fontWeight:700 }}>GST Certified</div>
           </div>
-          {/* Decorative ring */}
           <div style={{ position:'absolute', bottom:60, left:-30, width:90, height:90, borderRadius:'50%', border:'3px dashed rgba(75,181,67,.3)', zIndex:1, animation:'spin 18s linear infinite' }} />
           <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
         </div>
@@ -119,7 +114,6 @@ export function WhyUs() {
                 style={{ background:'rgba(255,255,255,.055)', border:'1px solid rgba(255,255,255,.09)', borderRadius:20, padding:'30px 26px', position:'relative', overflow:'hidden', opacity:inView?1:0, transform:inView?'translateY(0)':'translateY(28px)', transition:`opacity .6s ${(i%3)*90}ms, transform .6s ${(i%3)*90}ms`, cursor:'default' }}
                 onMouseEnter={e=>{e.currentTarget.style.background='rgba(255,255,255,.1)';e.currentTarget.style.borderColor='rgba(75,181,67,.35)';e.currentTarget.style.transform='translateY(-5px)'}}
                 onMouseLeave={e=>{e.currentTarget.style.background='rgba(255,255,255,.055)';e.currentTarget.style.borderColor='rgba(255,255,255,.09)';e.currentTarget.style.transform='translateY(0)'}}>
-                {/* Number watermark */}
                 <div style={{ position:'absolute', top:10, right:18, fontFamily:'Playfair Display,serif', fontSize:'4rem', fontWeight:900, color:'rgba(255,255,255,.04)', lineHeight:1, pointerEvents:'none' }}>0{i+1}</div>
                 <div style={{ width:52, height:52, background:'rgba(75,181,67,.14)', borderRadius:14, display:'flex', alignItems:'center', justifyContent:'center', fontSize:'1.6rem', marginBottom:18, border:'1px solid rgba(75,181,67,.2)' }}>{w.ico}</div>
                 <h3 style={{ fontFamily:'Playfair Display,serif', fontSize:'1.08rem', fontWeight:800, color:'#fff', marginBottom:10 }}>{w.title}</h3>
@@ -134,7 +128,7 @@ export function WhyUs() {
 }
 
 // ══════════════════════════════════════════════════
-// STATS BAR (fixed counter)
+// STATS BAR
 // ══════════════════════════════════════════════════
 function StatCount({ num, suffix, label, ico }) {
   const numRef = useRef(null)
@@ -172,13 +166,12 @@ function StatCount({ num, suffix, label, ico }) {
 export function StatsBar() {
   const stats = [
     { num:8,    suffix:'+', label:'Service Verticals',  ico:'🔧' },
-    { num:500,  suffix:'+', label:'Happy Clients',       ico:'😊' },
-    { num:15,   suffix:'+', label:'Years Experience',    ico:'📅' },
-    { num:1000, suffix:'+', label:'Projects Completed',  ico:'✅' },
+    { num:500,  suffix:'+', label:'Happy Clients',      ico:'😊' },
+    { num:15,   suffix:'+', label:'Years Experience',   ico:'📅' },
+    { num:1000, suffix:'+', label:'Projects Completed', ico:'✅' },
   ]
   return (
     <div style={{ background:'linear-gradient(135deg,#3da636 0%,#4bb543 50%,#2d7a27 100%)', padding:'52px 6%', position:'relative', overflow:'hidden' }}>
-      {/* Decorative shapes */}
       <div style={{ position:'absolute', top:-60, right:-60, width:200, height:200, borderRadius:'50%', background:'rgba(255,255,255,.06)', pointerEvents:'none' }} />
       <div style={{ position:'absolute', bottom:-80, left:-40, width:280, height:280, borderRadius:'50%', background:'rgba(255,255,255,.04)', pointerEvents:'none' }} />
       <div style={{ maxWidth:1280, margin:'0 auto', display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:24, position:'relative', zIndex:1 }}>
@@ -189,18 +182,15 @@ export function StatsBar() {
 }
 
 // ══════════════════════════════════════════════════
-// TESTIMONIALS
+// TESTIMONIALS  — static data only, no API
 // ══════════════════════════════════════════════════
-const FALLBACK_T = [
-  { id:1, author_name:'Rajesh Kumar',    avatar_initial:'R', author_role:'Facility Manager, IT Park — Chennai',         rating:5, content:'Welcare FMS has been managing our corporate office housekeeping for 3+ years. Always punctual, professional, and consistently outstanding quality. Best facility partner we have had.' },
-  { id:2, author_name:'Priya Venkatesh', avatar_initial:'P', author_role:'President, Resident Welfare Association, Nungambakkam', rating:5, content:'Their landscaping team transformed our complex beautifully. They understood our vision perfectly, delivered on time, and the pricing was very competitive. Highly recommended!' },
-  { id:3, author_name:'Suresh Annamalai',avatar_initial:'S', author_role:'Hotel Operations Manager, Chennai',            rating:5, content:'Their electrical and plumbing teams are top-notch. Fast execution, highly skilled professionals who follow all safety norms. Our hotel maintenance has never been smoother.' },
+const TESTIMONIALS = [
+  { id:1, author_name:'Rajesh Kumar',     avatar_initial:'R', author_role:'Facility Manager, IT Park — Chennai',                  rating:5, content:'Welcare FMS has been managing our corporate office housekeeping for 3+ years. Always punctual, professional, and consistently outstanding quality. Best facility partner we have had.' },
+  { id:2, author_name:'Priya Venkatesh',  avatar_initial:'P', author_role:'President, Resident Welfare Association, Nungambakkam', rating:5, content:'Their landscaping team transformed our complex beautifully. They understood our vision perfectly, delivered on time, and the pricing was very competitive. Highly recommended!' },
+  { id:3, author_name:'Suresh Annamalai', avatar_initial:'S', author_role:'Hotel Operations Manager, Chennai',                    rating:5, content:'Their electrical and plumbing teams are top-notch. Fast execution, highly skilled professionals who follow all safety norms. Our hotel maintenance has never been smoother.' },
 ]
 
 export function Testimonials() {
-  const [items, setItems] = useState(FALLBACK_T)
-  useEffect(()=>{ apiModule.get('/testimonials').then(r=>{if(r.data?.length)setItems(r.data)}).catch(()=>{}) },[])
-
   return (
     <section id="testimonials" style={{ background:'#fff', padding:'96px 0' }}>
       <div style={{ maxWidth:1280, margin:'0 auto', padding:'0 6%' }}>
@@ -210,10 +200,10 @@ export function Testimonials() {
           <p className="sec-desc">Trusted by businesses and residences across Chennai for reliable, professional facility management since 2009.</p>
         </div>
         <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:28 }}>
-          {items.map((t,i)=>{
+          {TESTIMONIALS.map((t,i) => {
             const { ref, inView } = useInView({ threshold:.08, triggerOnce:true })
             return (
-              <div key={t.id||i} ref={ref}
+              <div key={t.id} ref={ref}
                 style={{ background:'#f4f7fc', borderRadius:22, padding:'32px 28px', border:'1.5px solid #dde6f5', position:'relative', overflow:'hidden', opacity:inView?1:0, transform:inView?'translateY(0)':'translateY(28px)', transition:`opacity .65s ${i*110}ms, transform .65s ${i*110}ms`, cursor:'default' }}
                 onMouseEnter={e=>{e.currentTarget.style.boxShadow='0 22px 64px rgba(15,37,87,.13)';e.currentTarget.style.borderColor='rgba(75,181,67,.32)';e.currentTarget.style.transform='translateY(-6px)'}}
                 onMouseLeave={e=>{e.currentTarget.style.boxShadow='none';e.currentTarget.style.borderColor='#dde6f5';e.currentTarget.style.transform='translateY(0)'}}>
@@ -221,7 +211,7 @@ export function Testimonials() {
                 <div style={{ color:'#f59e0b', marginBottom:14, letterSpacing:2, fontSize:'.95rem' }}>{'★'.repeat(t.rating||5)}</div>
                 <p style={{ fontSize:'.92rem', color:'#4a5568', lineHeight:1.88, fontStyle:'italic', marginBottom:26, position:'relative' }}>"{t.content}"</p>
                 <div style={{ display:'flex', alignItems:'center', gap:14 }}>
-                  <div style={{ width:48, height:48, borderRadius:'50%', background:`linear-gradient(135deg,${['#0f2557','#1a3a8f','#0d4f8c'][i%3]},${['#1a3a8f','#0d4f8c','#4bb543'][i%3]})`, display:'flex', alignItems:'center', justifyContent:'center', color:'#fff', fontWeight:900, fontSize:'1.1rem', flexShrink:0, boxShadow:'0 4px 14px rgba(15,37,87,.25)' }}>{t.avatar_initial||t.author_name?.[0]}</div>
+                  <div style={{ width:48, height:48, borderRadius:'50%', background:`linear-gradient(135deg,${['#0f2557','#1a3a8f','#0d4f8c'][i%3]},${['#1a3a8f','#0d4f8c','#4bb543'][i%3]})`, display:'flex', alignItems:'center', justifyContent:'center', color:'#fff', fontWeight:900, fontSize:'1.1rem', flexShrink:0, boxShadow:'0 4px 14px rgba(15,37,87,.25)' }}>{t.avatar_initial}</div>
                   <div>
                     <div style={{ fontWeight:800, fontSize:'.9rem', color:'#0f2557' }}>{t.author_name}</div>
                     <div style={{ fontSize:'.75rem', color:'#7a8ba0', marginTop:3 }}>{t.author_role}</div>
@@ -258,7 +248,7 @@ export function CtaBanner() {
           <Link to="/contact" className="btn-primary" style={{ textDecoration:'none', fontSize:'1rem', padding:'16px 38px', borderRadius:50 }}>
             Get a Free Quote →
           </Link>
-          <a href="https://wa.me/919585949422?text=Hello%20Welcare%20FMS%2C%20I%20need%20a%20quote%20for%20facility%20management."
+          <a href="https://wa.me/919087876366?text=Hello%20Welcare%20FMS%2C%20I%20need%20a%20quote%20for%20facility%20management."
             target="_blank" rel="noreferrer"
             style={{ background:'#25D366', color:'#fff', padding:'16px 32px', borderRadius:50, fontWeight:700, fontSize:'1rem', textDecoration:'none', display:'inline-flex', alignItems:'center', gap:10, boxShadow:'0 8px 28px rgba(37,211,102,.42)', transition:'background .3s, transform .3s' }}
             onMouseEnter={e=>{e.currentTarget.style.background='#128C7E';e.currentTarget.style.transform='translateY(-3px)'}}
@@ -339,7 +329,7 @@ export function Footer() {
             { ico:'📞', txt:'+91 90878 76366', href:'tel:+919087876366' },
             { ico:'📠', txt:'044 – 28225362 / 4854 6598' },
             { ico:'✉️', txt:'info@welcarefms.com', href:'mailto:info@welcarefms.com' },
-            { ico:'💬', txt:'+91 95859 49422 (WhatsApp)', href:'https://wa.me/919585949422' },
+            { ico:'💬', txt:'+91 95859 49422 (WhatsApp)', href:'https://wa.me/919087876366' },
           ].map((c,i)=>(
             <div key={i} style={{ display:'flex', gap:11, marginBottom:14, alignItems:'flex-start' }}>
               <span style={{ fontSize:15, flexShrink:0, marginTop:2 }}>{c.ico}</span>
@@ -360,7 +350,7 @@ export function Footer() {
           © {new Date().getFullYear()} <a href="#hero" style={{ color:'#6dd468', textDecoration:'none' }}>Welcare FMS</a>. All rights reserved. | Facility Management Services, Chennai, Tamil Nadu.
         </div>
         <div style={{ display:'flex', gap:10 }}>
-          {[['https://wa.me/919585949422','💬','WhatsApp'],['mailto:info@welcarefms.com','✉️','Email'],['tel:+919087876366','📞','Call']].map(([h,ico,ttl])=>(
+          {[['https://wa.me/919087876366','💬','WhatsApp'],['mailto:info@welcarefms.com','✉️','Email'],['tel:+919087876366','📞','Call']].map(([h,ico,ttl])=>(
             <a key={ico} href={h} target="_blank" rel="noreferrer" title={ttl}
               style={{ width:38, height:38, borderRadius:'50%', background:'rgba(255,255,255,.06)', border:'1px solid rgba(255,255,255,.1)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, textDecoration:'none', transition:'background .3s, transform .3s' }}
               onMouseEnter={e=>{e.currentTarget.style.background='#4bb543';e.currentTarget.style.transform='translateY(-3px)'}}
@@ -379,7 +369,7 @@ export function Footer() {
 // ══════════════════════════════════════════════════
 export function FloatingWA() {
   return (
-    <a href="https://wa.me/919585949422?text=Hello%20Welcare%20FMS%2C%20I%20am%20interested%20in%20your%20services."
+    <a href="https://wa.me/919087876366?text=Hello%20Welcare%20FMS%2C%20I%20am%20interested%20in%20your%20services."
       target="_blank" rel="noreferrer" title="Chat on WhatsApp"
       style={{ position:'fixed', bottom:28, right:28, zIndex:1100, width:62, height:62, borderRadius:'50%', background:'#25D366', display:'flex', alignItems:'center', justifyContent:'center', fontSize:28, textDecoration:'none', boxShadow:'0 8px 30px rgba(37,211,102,.52)', animation:'waPulse 2.5s ease-in-out infinite', transition:'background .3s, transform .3s' }}
       onMouseEnter={e=>{e.currentTarget.style.background='#128C7E';e.currentTarget.style.transform='scale(1.12)';e.currentTarget.style.animation='none'}}

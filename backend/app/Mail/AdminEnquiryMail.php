@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Enquiry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -14,20 +13,20 @@ class AdminEnquiryMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public Enquiry $enquiry) {}
+    public function __construct(public array $data) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
             from: new Address(
-                env('MAIL_FROM_ADDRESS', 'noreply@welcarefms.com'),
+                env('MAIL_FROM_ADDRESS', 'dhanaxteriya011@gmail.com'),
                 env('MAIL_FROM_NAME', 'Welcare FMS Website')
             ),
             replyTo: [
-                new Address($this->enquiry->email, $this->enquiry->name),
+                new Address($this->data['email'], $this->data['name']),
             ],
-            subject: '🔔 New Enquiry: ' . $this->enquiry->name
-                   . ($this->enquiry->service ? ' — ' . $this->enquiry->service : '')
+            subject: '🔔 New Enquiry: ' . $this->data['name']
+                   . (!empty($this->data['service']) ? ' — ' . $this->data['service'] : '')
                    . ' | Welcare FMS',
         );
     }

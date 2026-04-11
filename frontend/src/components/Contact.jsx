@@ -2,13 +2,7 @@ import { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import styles from './Contact.module.css'
 
-// ── EmailJS config — fill these after signup at emailjs.com (free)
-// See README inside ZIP for step-by-step setup
-const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || 'YOUR_SERVICE_ID'
-const EMAILJS_ADMIN_TMPL  = import.meta.env.VITE_EMAILJS_ADMIN_TMPL  || 'YOUR_ADMIN_TEMPLATE_ID'
-const EMAILJS_USER_TMPL   = import.meta.env.VITE_EMAILJS_USER_TMPL   || 'YOUR_USER_TEMPLATE_ID'
-const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || 'YOUR_PUBLIC_KEY'
-const ADMIN_EMAIL         = import.meta.env.VITE_ADMIN_EMAIL          || 'info@welcarefms.com'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
 
 const SERVICES = [
   'Housekeeping Services','Landscape Services','Security Services',
@@ -24,57 +18,35 @@ const CONTACT_ITEMS = [
   { icon:'🌐', label:'Website',         value:'www.welcarefms.com', href:'https://www.welcarefms.com' },
 ]
 
-// ── Send via EmailJS SDK (no backend needed)
-async function sendViaEmailJS(form) {
-  // Dynamically load EmailJS SDK
-  if (!window.emailjs) {
-    await new Promise((resolve, reject) => {
-      const s = document.createElement('script')
-      s.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js'
-      s.onload = resolve
-      s.onerror = reject
-      document.head.appendChild(s)
-    })
-    window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY })
+async function submitEnquiry(form) {
+  const res = await fetch(`${API_URL}/contact`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify(form),
+  })
+
+  const data = await res.json()
+
+  if (!res.ok) {
+    const firstError = data.errors
+      ? Object.values(data.errors).flat()[0]
+      : (data.message || 'Something went wrong. Please try again.')
+    throw new Error(firstError)
   }
 
-  const now = new Date().toLocaleString('en-IN', {
-    day:'2-digit', month:'short', year:'numeric',
-    hour:'2-digit', minute:'2-digit', hour12:true
-  })
-
-  const params = {
-    from_name:    form.name,
-    from_email:   form.email,
-    from_phone:   form.phone,
-    service:      form.service || 'Not specified',
-    message:      form.message || '—',
-    submitted_on: now,
-    admin_email:  ADMIN_EMAIL,
-    to_email:     form.email,
-    wa_link:      `https://wa.me/91${form.phone.replace(/\D/g,'')}?text=Hello+${encodeURIComponent(form.name)}%2C+this+is+Welcare+FMS+regarding+your+enquiry.`,
-  }
-
-  // Send to admin
-  await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_ADMIN_TMPL, {
-    ...params,
-    to_email: ADMIN_EMAIL,
-  })
-
-  // Send auto-reply to user
-  await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_USER_TMPL, {
-    ...params,
-    to_email: form.email,
-  })
+  return data
 }
 
 export default function Contact() {
   const { ref, inView } = useInView({ threshold: 0.1, triggerOnce: true })
 
-  const [form, setForm]       = useState({ name:'', phone:'', email:'', service:'', message:'' })
-  const [errors, setErrors]   = useState({})
-  const [loading, setLoading] = useState(false)
-  const [success, setSuccess] = useState(false)
+  const [form, setForm]             = useState({ name:'', phone:'', email:'', service:'', message:'' })
+  const [errors, setErrors]         = useState({})
+  const [loading, setLoading]       = useState(false)
+  const [success, setSuccess]       = useState(false)
   const [serverError, setServerError] = useState('')
 
   const validate = () => {
@@ -101,14 +73,12 @@ export default function Contact() {
     setServerError('')
 
     try {
-      await sendViaEmailJS(form)
+      await submitEnquiry(form)
       setSuccess(true)
       setForm({ name:'', phone:'', email:'', service:'', message:'' })
     } catch (err) {
-      console.error('EmailJS error:', err)
-      setServerError(
-        'EmailJS not configured yet. Please add your EmailJS keys to the .env file. See EMAILJS_SETUP.md for instructions.'
-      )
+      console.error('Submit error:', err)
+      setServerError(err.message)
     } finally {
       setLoading(false)
     }
@@ -136,8 +106,8 @@ export default function Contact() {
                 <div className={styles.itemLbl}>{item.label}</div>
                 <div className={styles.itemVal}>
                   {item.href
-                    ? <a href={item.href} target={item.href.startsWith('http')?'_blank':'_self'} rel="noreferrer">{item.value}</a>
-                    : item.value.split('\n').map((l,i) => <span key={i}>{l}{i===0 && <br/>}</span>)
+                    ? <a href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noreferrer">{item.value}</a>
+                    : item.value.split('\n').map((l, i) => <span key={i}>{l}{i === 0 && <br />}</span>)
                   }
                 </div>
               </div>
@@ -145,7 +115,7 @@ export default function Contact() {
           ))}
 
           <a
-            href="https://wa.me/919585949422?text=Hello%20Welcare%20FMS%2C%20I%20am%20interested%20in%20your%20services."
+            href="https://wa.me/919087876366?text=Hello%20Welcare%20FMS%2C%20I%20am%20interested%20in%20your%20services."
             target="_blank" rel="noreferrer"
             className={styles.waBtn}
           >
@@ -166,8 +136,14 @@ export default function Contact() {
             <div className={styles.successBox}>
               <div className={styles.successIco}>✅</div>
               <h4>Enquiry Sent Successfully!</h4>
-              <p>A confirmation email has been sent to <strong>{form.email || 'your inbox'}</strong>.<br/>We will contact you within 24 hours.</p>
-              <button className={`btn-primary ${styles.resetBtn}`} onClick={() => setSuccess(false)}>
+              <p>
+                A confirmation email has been sent to <strong>{form.email || 'your inbox'}</strong>.<br />
+                We will contact you within 24 hours.
+              </p>
+              <button
+                className={`btn-primary ${styles.resetBtn}`}
+                onClick={() => setSuccess(false)}
+              >
                 Send Another Enquiry
               </button>
             </div>
@@ -233,7 +209,7 @@ export default function Contact() {
                 disabled={loading}
               >
                 {loading
-                  ? <><span className={styles.spinner} /> Sending email…</>
+                  ? <><span className={styles.spinner} /> Sending…</>
                   : <>Send Enquiry ✉️</>
                 }
               </button>

@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Enquiry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -14,18 +13,18 @@ class UserThankYouMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public Enquiry $enquiry) {}
+    public function __construct(public array $data) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
             from: new Address(
-                env('MAIL_FROM_ADDRESS', 'info@welcarefms.com'),
+                env('MAIL_FROM_ADDRESS', 'dhanaxteriya011@gmail.com'),
                 env('MAIL_FROM_NAME', 'Welcare FMS')
             ),
             replyTo: [
                 new Address(
-                    env('ADMIN_MAIL', 'info@welcarefms.com'),
+                    env('ADMIN_MAIL', 'dhanaxteriya011@gmail.com'),
                     'Welcare FMS Team'
                 ),
             ],
