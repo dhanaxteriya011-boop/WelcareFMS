@@ -14,8 +14,12 @@ const CONTACT_ITEMS = [
   { icon:'📍', label:'Office Address',  value:'#9/3, 2nd Floor, Pushpa Nagar Main Road,\nNungambakkam, Chennai – 600 034' },
   { icon:'📞', label:'Mobile',          value:'+91 90878 76366', href:'tel:+919087876366' },
   { icon:'📠', label:'Office Landline', value:'044 – 28225362 / 4854 6598', href:'tel:04428225362' },
-  { icon:'✉️', label:'Email',           value:'admin@welcarefms.com', href:'mailto:admin@welcarefms.com' },
-  { icon:'🌐', label:'Website',         value:'www.welcarefms.com', href:'https://www.welcarefms.com' },
+  {
+    icon: '✉️',
+    label: 'Email',
+    value: ['admin@welcarefms.com', 'info@welcarefms.com']
+  }, 
+  { icon:'🌐', label:'Website', value:'www.welcarefms.com', href:'https://www.welcarefms.com' },
 ]
 
 async function submitEnquiry(form) {
@@ -104,12 +108,33 @@ export default function Contact() {
               <div className={styles.itemIco}>{item.icon}</div>
               <div>
                 <div className={styles.itemLbl}>{item.label}</div>
+
+                {/* ✅ FIXED HERE */}
                 <div className={styles.itemVal}>
-                  {item.href
-                    ? <a href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noreferrer">{item.value}</a>
-                    : item.value.split('\n').map((l, i) => <span key={i}>{l}{i === 0 && <br />}</span>)
-                  }
+                  {Array.isArray(item.value) ? (
+                    item.value.map((email, i) => (
+                      <div key={i}>
+                        <a href={`mailto:${email}`}>{email}</a>
+                      </div>
+                    ))
+                  ) : item.href ? (
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : '_self'}
+                      rel="noreferrer"
+                    >
+                      {item.value}
+                    </a>
+                  ) : (
+                    item.value.split('\n').map((l, i) => (
+                      <span key={i}>
+                        {l}
+                        {i === 0 && <br />}
+                      </span>
+                    ))
+                  )}
                 </div>
+
               </div>
             </div>
           ))}
@@ -152,31 +177,26 @@ export default function Contact() {
               <div className={styles.frow}>
                 <div className={styles.fg}>
                   <label htmlFor="name">Full Name *</label>
-                  <input
-                    id="name" name="name" value={form.name}
+                  <input id="name" name="name" value={form.name}
                     onChange={handleChange} placeholder="Your full name"
-                    className={errors.name ? styles.errInput : ''}
-                  />
+                    className={errors.name ? styles.errInput : ''}/>
                   {errors.name && <span className={styles.errMsg}>{errors.name}</span>}
                 </div>
+
                 <div className={styles.fg}>
                   <label htmlFor="phone">Phone Number *</label>
-                  <input
-                    id="phone" name="phone" value={form.phone}
+                  <input id="phone" name="phone" value={form.phone}
                     onChange={handleChange} placeholder="+91 XXXXX XXXXX"
-                    className={errors.phone ? styles.errInput : ''}
-                  />
+                    className={errors.phone ? styles.errInput : ''}/>
                   {errors.phone && <span className={styles.errMsg}>{errors.phone}</span>}
                 </div>
               </div>
 
               <div className={styles.fg}>
                 <label htmlFor="email">Email Address *</label>
-                <input
-                  id="email" name="email" type="email" value={form.email}
+                <input id="email" name="email" type="email" value={form.email}
                   onChange={handleChange} placeholder="your@email.com"
-                  className={errors.email ? styles.errInput : ''}
-                />
+                  className={errors.email ? styles.errInput : ''}/>
                 {errors.email && <span className={styles.errMsg}>{errors.email}</span>}
               </div>
 
@@ -190,11 +210,9 @@ export default function Contact() {
 
               <div className={styles.fg}>
                 <label htmlFor="message">Your Message</label>
-                <textarea
-                  id="message" name="message" value={form.message}
+                <textarea id="message" name="message" value={form.message}
                   onChange={handleChange} placeholder="Tell us about your requirements…"
-                  rows={4}
-                />
+                  rows={4}/>
               </div>
 
               {serverError && (
@@ -203,19 +221,15 @@ export default function Contact() {
                 </div>
               )}
 
-              <button
-                type="submit"
+              <button type="submit"
                 className={`btn-primary ${styles.submitBtn}`}
-                disabled={loading}
-              >
-                {loading
-                  ? <><span className={styles.spinner} /> Sending…</>
-                  : <>Send Enquiry ✉️</>
-                }
+                disabled={loading}>
+                {loading ? <><span className={styles.spinner} /> Sending…</> : <>Send Enquiry ✉️</>}
               </button>
             </form>
           )}
         </div>
+
       </div>
     </section>
   )
