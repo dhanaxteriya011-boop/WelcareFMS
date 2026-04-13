@@ -14,7 +14,7 @@ const CONTACT_ITEMS = [
   { icon:'📍', label:'Office Address',  value:'#9/3, 2nd Floor, Pushpa Nagar Main Road,\nNungambakkam, Chennai – 600 034' },
   { icon:'📞', label:'Mobile',          value:'+91 90878 76366', href:'tel:+919087876366' },
   { icon:'📠', label:'Office Landline', value:'044 – 28225362 / 4854 6598', href:'tel:04428225362' },
-  { icon:'✉️', label:'Email',           value:'info@welcarefms.com', href:'mailto:info@welcarefms.com' },
+  { icon:'✉️', label:'Email',           value:'admin@welcarefms.com', href:'mailto:admin@welcarefms.com' },
   { icon:'🌐', label:'Website',         value:'www.welcarefms.com', href:'https://www.welcarefms.com' },
 ]
 

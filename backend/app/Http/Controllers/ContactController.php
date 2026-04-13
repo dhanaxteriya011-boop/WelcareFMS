@@ -23,7 +23,7 @@ class ContactController extends Controller
         $data['ref']          = strtoupper(substr(md5($data['email'] . microtime()), 0, 8));
         $data['submitted_at'] = now()->format('d M Y, h:i A');
 
-        Mail::to(env('ADMIN_MAIL', 'dhanaxteriya011@gmail.com'))
+        Mail::to(env('ADMIN_MAIL', 'admin@welcarefms.com'))
             ->send(new AdminEnquiryMail($data));
 
         Mail::to($data['email'])

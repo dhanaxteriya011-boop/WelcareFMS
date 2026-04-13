@@ -212,7 +212,7 @@
           <strong style="color:#ffffff;">Welcare FMS</strong><br/>
           #9/3, 2nd Floor, Pushpa Nagar Main Road, Nungambakkam, Chennai – 600 034<br/>
           +91 90878 76366 &nbsp;|&nbsp; 044-28225362 &nbsp;|&nbsp;
-          <a href="mailto:info@welcarefms.com" style="color:#4fc3f7;text-decoration:none;">info@welcarefms.com</a><br/>
+          <a href="mailto:admin@welcarefms.com" style="color:#4fc3f7;text-decoration:none;">admin@welcarefms.com</a><br/>
           <a href="https://www.welcarefms.com" style="color:#4fc3f7;text-decoration:none;">www.welcarefms.com</a>
           &nbsp;|&nbsp; GST: 33AACF4037FW4037FIZG
         </div>

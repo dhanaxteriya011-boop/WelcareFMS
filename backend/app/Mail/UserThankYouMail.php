@@ -24,7 +24,7 @@ class UserThankYouMail extends Mailable
             ),
             replyTo: [
                 new Address(
-                    env('ADMIN_MAIL', 'dhanaxteriya011@gmail.com'),
+                    env('ADMIN_MAIL', 'admin@welcarefms.com'),
                     'Welcare FMS Team'
                 ),
             ],

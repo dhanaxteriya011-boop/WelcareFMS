@@ -328,7 +328,7 @@ export function Footer() {
             { ico:'📍', txt:'#9/3, 2nd Floor, Pushpa Nagar Main Road,\nNungambakkam, Chennai – 600 034' },
             { ico:'📞', txt:'+91 90878 76366', href:'tel:+919087876366' },
             { ico:'📠', txt:'044 – 28225362 / 4854 6598' },
-            { ico:'✉️', txt:'info@welcarefms.com', href:'mailto:info@welcarefms.com' },
+            { ico:'✉️', txt:'admin@welcarefms.com', href:'mailto:admin@welcarefms.com' },
             { ico:'💬', txt:'+91 95859 49422 (WhatsApp)', href:'https://wa.me/919087876366' },
           ].map((c,i)=>(
             <div key={i} style={{ display:'flex', gap:11, marginBottom:14, alignItems:'flex-start' }}>
@@ -350,7 +350,7 @@ export function Footer() {
           © {new Date().getFullYear()} <a href="#hero" style={{ color:'#6dd468', textDecoration:'none' }}>Welcare FMS</a>. All rights reserved. | Facility Management Services, Chennai, Tamil Nadu.
         </div>
         <div style={{ display:'flex', gap:10 }}>
-          {[['https://wa.me/919087876366','💬','WhatsApp'],['mailto:info@welcarefms.com','✉️','Email'],['tel:+919087876366','📞','Call']].map(([h,ico,ttl])=>(
+          {[['https://wa.me/919087876366','💬','WhatsApp'],['mailto:admin@welcarefms.com','✉️','Email'],['tel:+919087876366','📞','Call']].map(([h,ico,ttl])=>(
             <a key={ico} href={h} target="_blank" rel="noreferrer" title={ttl}
               style={{ width:38, height:38, borderRadius:'50%', background:'rgba(255,255,255,.06)', border:'1px solid rgba(255,255,255,.1)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, textDecoration:'none', transition:'background .3s, transform .3s' }}
               onMouseEnter={e=>{e.currentTarget.style.background='#4bb543';e.currentTarget.style.transform='translateY(-3px)'}}

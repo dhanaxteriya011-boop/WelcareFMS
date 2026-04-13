@@ -19,7 +19,7 @@ class AdminEnquiryMail extends Mailable
     {
         return new Envelope(
             from: new Address(
-                env('MAIL_FROM_ADDRESS', 'dhanaxteriya011@gmail.com'),
+                env('MAIL_FROM_ADDRESS', 'admin@welcarefms.com'),
                 env('MAIL_FROM_NAME', 'Welcare FMS Website')
             ),
             replyTo: [
