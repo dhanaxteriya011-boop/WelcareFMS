@@ -371,10 +371,15 @@ export function FloatingWA() {
   return (
     <a href="https://wa.me/919087876366?text=Hello%20Welcare%20FMS%2C%20I%20am%20interested%20in%20your%20services."
       target="_blank" rel="noreferrer" title="Chat on WhatsApp"
-      style={{ position:'fixed', bottom:28, right:28, zIndex:1100, width:62, height:62, borderRadius:'50%', background:'#25D366', display:'flex', alignItems:'center', justifyContent:'center', fontSize:28, textDecoration:'none', boxShadow:'0 8px 30px rgba(37,211,102,.52)', animation:'waPulse 2.5s ease-in-out infinite', transition:'background .3s, transform .3s' }}
+      style={{ position:'fixed', bottom:28, right:28, zIndex:1100, width:62, height:62, borderRadius:'50%', background:'#25D366', display:'flex', alignItems:'center', justifyContent:'center', textDecoration:'none', boxShadow:'0 8px 30px rgba(37,211,102,.52)', animation:'waPulse 2.5s ease-in-out infinite', transition:'background .3s, transform .3s' }}
       onMouseEnter={e=>{e.currentTarget.style.background='#128C7E';e.currentTarget.style.transform='scale(1.12)';e.currentTarget.style.animation='none'}}
       onMouseLeave={e=>{e.currentTarget.style.background='#25D366';e.currentTarget.style.transform='scale(1)';e.currentTarget.style.animation='waPulse 2.5s ease-in-out infinite'}}>
-      💬
+
+      {/* WhatsApp SVG icon */}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="#fff">
+        <path d="M16 2C8.268 2 2 8.268 2 16c0 2.468.672 4.778 1.845 6.76L2 30l7.45-1.818A13.93 13.93 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.6a11.56 11.56 0 0 1-5.892-1.613l-.422-.252-4.42 1.08 1.11-4.3-.276-.44A11.6 11.6 0 1 1 16 27.6zm6.37-8.674c-.348-.174-2.06-1.016-2.38-1.132-.318-.116-.55-.174-.78.174-.232.348-.896 1.132-1.098 1.364-.202.232-.404.26-.752.086-.348-.174-1.47-.542-2.8-1.726-1.034-.922-1.732-2.06-1.936-2.408-.202-.348-.022-.536.152-.708.156-.156.348-.406.522-.608.174-.202.232-.348.348-.58.116-.232.058-.434-.028-.608-.087-.174-.78-1.882-1.07-2.576-.282-.676-.568-.584-.78-.594l-.665-.012c-.23 0-.608.086-.926.434-.318.348-1.214 1.186-1.214 2.892s1.243 3.354 1.416 3.586c.174.232 2.446 3.732 5.928 5.234.828.358 1.474.572 1.978.732.83.264 1.587.226 2.184.138.666-.1 2.06-.842 2.35-1.656.29-.814.29-1.512.202-1.656-.086-.144-.318-.23-.666-.404z"/>
+      </svg>
+
       <style>{`@keyframes waPulse{0%,100%{box-shadow:0 8px 30px rgba(37,211,102,.52),0 0 0 0 rgba(37,211,102,.4)}50%{box-shadow:0 8px 30px rgba(37,211,102,.52),0 0 0 18px rgba(37,211,102,0)}}`}</style>
     </a>
   )

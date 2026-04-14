@@ -1,32 +1,26 @@
-import { useState, useEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import styles from './PageLoader.module.css'
 
+let hasLoaded = false  // ← module-level flag, resets only on hard refresh
+
 export default function PageLoader() {
-  const [visible, setVisible] = useState(true) // true = shows on first load
+  const [visible, setVisible] = useState(() => !hasLoaded)
   const [hiding, setHiding] = useState(false)
-  const location = useLocation()
-  const isFirst = useRef(true)
 
-  const show = () => {
-    setHiding(false)
-    setVisible(true)
-    setTimeout(() => {
+  useEffect(() => {
+    if (!visible) return
+
+    const hideTimer = setTimeout(() => {
       setHiding(true)
-      setTimeout(() => setVisible(false), 400)
+      const removeTimer = setTimeout(() => {
+        setVisible(false)
+        hasLoaded = true  // ← set after first load
+      }, 400)
+      return () => clearTimeout(removeTimer)
     }, 1200)
-  }
 
-  useEffect(() => {
-    // First load
-    show()
-  }, [])
-
-  useEffect(() => {
-    // Skip first render (already handled above)
-    if (isFirst.current) { isFirst.current = false; return }
-    show()
-  }, [location.pathname])
+    return () => clearTimeout(hideTimer)
+  }, [visible])
 
   if (!visible) return null
 

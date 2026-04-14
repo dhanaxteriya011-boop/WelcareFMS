@@ -76,9 +76,6 @@ function ServiceCard({ svc, index }) {
             <li key={i}><span className={styles.check}>✓</span>{f}</li>
           ))}
         </ul>
-        <Link to="/contact" className={styles.cta}>
-          Get a Quote <span className={styles.arr}>→</span>
-        </Link>
       </div>
     </div>
   )

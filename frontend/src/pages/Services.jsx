@@ -112,17 +112,21 @@ function ServiceCard({ s, i }) {
                 </div>
               ))}
             </div>
-            <div style={{ display:'flex', gap:10, alignItems:'center', flexWrap:'wrap' }}>
-              <button onClick={()=>setOpen(p=>!p)} style={{ background:'none', border:'none', color:'#7a8ba0', fontSize:'.76rem', cursor:'pointer', padding:0, transition:'color .3s' }}
-                onMouseEnter={e=>e.currentTarget.style.color='#4bb543'} onMouseLeave={e=>e.currentTarget.style.color='#7a8ba0'}>
-                {open ? '▲ Show less' : `▼ +${s.features.length - 4} more`}
-              </button>
-              <Link to="/contact" style={{ marginLeft:'auto', background:'rgba(75,181,67,.09)', border:'1px solid rgba(75,181,67,.25)', color:'#2d7a27', padding:'8px 18px', borderRadius:50, fontSize:'.78rem', fontWeight:700, textDecoration:'none', transition:'all .3s' }}
-                onMouseEnter={e=>{e.currentTarget.style.background='#4bb543';e.currentTarget.style.color='#fff'}}
-                onMouseLeave={e=>{e.currentTarget.style.background='rgba(75,181,67,.09)';e.currentTarget.style.color='#2d7a27'}}>
-                Get Quote →
-              </Link>
-            </div>
+          <div style={{ display:'flex', gap:10, alignItems:'center', flexWrap:'wrap' }}>
+            <button onClick={()=>setOpen(p=>!p)} style={{ background:'none', border:'none', color:'#7a8ba0', fontSize:'.76rem', cursor:'pointer', padding:0, transition:'color .3s' }}
+              onMouseEnter={e=>e.currentTarget.style.color='#4bb543'} onMouseLeave={e=>e.currentTarget.style.color='#7a8ba0'}>
+              {open ? '▲ Show less' : `▼ +${s.features.length - 4} more`}
+            </button>
+            <a
+              href={`https://wa.me/919087876366?text=Hello%20Welcare%20FMS%2C%20I%20am%20interested%20in%20your%20*${encodeURIComponent(s.name)}*%20service.%20Please%20share%20more%20details.`}
+              target="_blank"
+              rel="noreferrer"
+              style={{ marginLeft:'auto', background:'rgba(75,181,67,.09)', border:'1px solid rgba(75,181,67,.25)', color:'#2d7a27', padding:'8px 18px', borderRadius:50, fontSize:'.78rem', fontWeight:700, textDecoration:'none', transition:'all .3s' }}
+              onMouseEnter={e=>{e.currentTarget.style.background='#4bb543';e.currentTarget.style.color='#fff'}}
+              onMouseLeave={e=>{e.currentTarget.style.background='rgba(75,181,67,.09)';e.currentTarget.style.color='#2d7a27'}}>
+              Get Quote →
+            </a>
+          </div>
           </div>
           {/* Meta */}
           <div style={{ marginTop:14, paddingTop:14, borderTop:'1px solid #f0f4fa', display:'flex', gap:8, flexWrap:'wrap' }}>

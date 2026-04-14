@@ -27,18 +27,12 @@ export default function Navbar() {
     <>
       <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
 
-        {/* ── LOGO: circular green-outlined badge ── */}
         <Link to="/" className={styles.logo}>
           <div className={styles.logoCircle}>
-            <img
-              src="/logo.png"
-              alt="Welcare FMS"
-              className={styles.logoImg}
-            />
+            <img src="/logo.png" alt="Welcare FMS" className={styles.logoImg} />
           </div>
         </Link>
 
-        {/* ── NAV LINKS ── */}
         <ul className={styles.links}>
           {LINKS.map(l => (
             <li key={l.to}>
@@ -55,7 +49,6 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* ── HAMBURGER ── */}
         <button
           className={`${styles.ham} ${open ? styles.open : ''}`}
           onClick={() => setOpen(p => !p)}
@@ -65,8 +58,8 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* ── MOBILE DRAWER ── */}
-      <div className={`${styles.mobile} ${open ? styles.mobileOpen : ''}`}>
+      {/* Mobile drawer — offset adjusts when scrolled */}
+      <div className={`${styles.mobile} ${open ? styles.mobileOpen : ''} ${scrolled ? styles.mobileScrolled : ''}`}>
         {LINKS.map(l => (
           <Link
             key={l.to}
